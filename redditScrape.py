@@ -17,7 +17,8 @@ def dligifv(each):
 	filename=each.split('/')[-1]
 	each1 = each.split(".")
 	each1[-1] = "webm"
-	urllib.urlretrieve(".".join(each1), home+"/downloads/"+filename)
+	if not os.path.exists(home+"/downloads/"+filename):
+		urllib.urlretrieve(".".join(each1), home+"/downloads/"+filename)
 
 def dlalbum(x):
 	response = requests.get(x+"/all")
@@ -40,8 +41,9 @@ def gfydl(link):
 	each = soup.find(id="mp4Source")['src']
 	filename=each.split('/')[-1]
 	mp3file = urllib2.urlopen(each)
-	with open(home+"/downloads/"+filename,'wb') as f:
-		f.write(mp3file.read())
+	if not os.path.exists(home+"/downloads/"+filename):
+		with open(home+"/downloads/"+filename,'wb') as f:
+			f.write(mp3file.read())
 
 
 def iimgurdl(link,directory=None,i=None):
@@ -56,11 +58,15 @@ def iimgurdl(link,directory=None,i=None):
 				pass
 			else:	
 				fpath =  directory+"/"+str(i)+"_"+filename
-				urllib.urlretrieve(link,fpath)
+				if not os.path.exists(fpath):
+
+					urllib.urlretrieve(link,fpath)
 		else:
 			filename=link.split('/')[-1]
 			fpath =  home+"/downloads/"+filename
-			urllib.urlretrieve(link,fpath)
+			if not os.path.exists(fpath):
+		
+				urllib.urlretrieve(link,fpath)
 					
 def imgurDL(link):
 	if "i.imgur" in link:
@@ -97,6 +103,12 @@ if not os.path.exists(home+"downloads"):
 print "Your files will be stored in " +home     
 
 submissions = r.get_subreddit(subr).get_top(limit=top,params={"t":fromt})
+count=1
 for i in submissions:
-	print "Downloading " +i.url +" ... "
-	typeget(i.url)
+	print "Downloading "+str(count)+": " +i.url +" ... "
+	try:
+		typeget(i.url)
+
+	except:
+		pass	
+	count+=1	
