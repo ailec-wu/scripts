@@ -1,4 +1,4 @@
-# scriptsimport urllib2
+import urllib2
 import praw
 import urllib
 from urlparse import urljoin
@@ -6,6 +6,8 @@ from os.path import expanduser
 from bs4 import BeautifulSoup as bs
 import os
 import requests
+from subprocess import call
+
 home = expanduser("~")+"/Desktop/"
 if not os.path.exists(home+"downloads"):
     os.makedirs(home+"downloads")
@@ -74,9 +76,18 @@ def typeget(link):
 		imgurDL(link)
 	elif "gfycat" in link:
 		gfydl(link)	
+	else:
+		viddl(link)	
+def viddl(link):
+
+	command = "youtube-dl --output " + home + "/downloads/"+"%(title)s.%(ext)s"+ " "+link
+	try:
+		call(command.split(), shell=False)
+	except:
+		pass	
 
 r = praw.Reddit(user_agent='my_cool_application')
-submissions = r.get_subreddit('holdthemoan').get_top(limit=100,params={"t":"year"})
+submissions = r.get_subreddit('pornvids').get_top(limit=100,params={"t":"year"})
 for i in submissions:
 	print i.url
 	typeget(i.url)
