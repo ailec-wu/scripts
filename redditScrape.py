@@ -87,7 +87,11 @@ def viddl(link):
 		pass	
 
 r = praw.Reddit(user_agent='my_cool_application')
-submissions = r.get_subreddit('pornvids').get_top(limit=100,params={"t":"year"})
+subr = raw_input("Enter Subreddit of choice:\n")
+top = input("Enter post limitation(integer):\n")
+fromt = raw_input("Enter time period: hour,day,week,month,year,all\n")
+
+submissions = r.get_subreddit(subr).get_top(limit=top,params={"t":fromt})
 for i in submissions:
 	print i.url
 	typeget(i.url)
