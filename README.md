@@ -17,4 +17,6 @@ sudo pip install praw
 
 sudo pip install bs4
 
+python redditScrape.py
+
 -------------------------------------------------------------------------------------
