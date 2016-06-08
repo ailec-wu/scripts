@@ -9,8 +9,6 @@ import requests
 from subprocess import call
 
 home = expanduser("~")+"/Desktop/"
-if not os.path.exists(home+"downloads"):
-    os.makedirs(home+"downloads")
 def dl(each):
 	filename=each.split('/')[-1]
 	urllib.urlretrieve(each, filename)
@@ -91,7 +89,14 @@ subr = raw_input("Enter Subreddit of choice:\n")
 top = input("Enter post limitation(integer):\n")
 fromt = raw_input("Enter time period: hour,day,week,month,year,all\n")
 
+home = expanduser("~") + "/.scrape/"+subr+"/"
+
+if not os.path.exists(home+"downloads"):
+    os.makedirs(home+"downloads")
+
+print "Your files will be stored in " +home     
+
 submissions = r.get_subreddit(subr).get_top(limit=top,params={"t":fromt})
 for i in submissions:
-	print i.url
+	print "Downloading " +i.url +" ... "
 	typeget(i.url)
