@@ -10,7 +10,9 @@ Requirements -
 praw , bs4 , youtube-dl
 
 sudo apt-get install youtube-dl
+
 sudo pip install praw
+
 sudo pip install bs4
 
 -------------------------------------------------------------------------------------
