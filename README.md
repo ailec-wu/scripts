@@ -3,20 +3,22 @@
 redditScrape:
 -------------------------------------------------------------------------------------
 
-My attempt at scraping subreddits
+A general purpose Reddit Scraper
 
-Downloads images, gifs , gifvs, gfy , imgur albums and videos (Youtube/ "other" websites)
+Downloads images, images from imgur, all types of gifs, and videos via youtube-dl.
 
-Requirements - 
+Requirements:
 
 praw , bs4 , youtube-dl
 
-sudo apt-get install youtube-dl
+`sudo apt-get install youtube-dl`
 
-sudo pip install praw
+`sudo pip install praw`
 
-sudo pip install bs4
+`sudo pip install bs4`
 
-python redditScrape.py
+Run:
+
+`python redditScrape.py`
 
 -------------------------------------------------------------------------------------
