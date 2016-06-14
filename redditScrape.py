@@ -91,7 +91,7 @@ def viddl(link):
 	except:
 		pass	
 
-r = praw.Reddit(user_agent='my_cool_application')
+r = praw.Reddit(user_agent='Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36')
 
 linkorsub = raw_input("Single Link or Subreddit? 1 , 2 :\n")
 if linkorsub == "1":
