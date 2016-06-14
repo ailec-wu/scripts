@@ -1,9 +1,5 @@
-# scripts
-
-redditScrape:
+RedditScrape: A general purpose reddit scraper
 -------------------------------------------------------------------------------------
-
-A general purpose Reddit Scraper
 
 Downloads images, images from imgur, all types of gifs, and videos via youtube-dl.
 
