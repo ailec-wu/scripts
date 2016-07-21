@@ -18,3 +18,21 @@ Run:
 `python redditScrape.py`
 
 -------------------------------------------------------------------------------------
+
+DRCalc: DR Calculator from GradeCards
+-------------------------------------------------------------------------------------
+
+Calculates Department Ranks from PDFs of Grade Cards and outputs a sorted CSV.
+
+Requirements:
+pdfminer,slate
+
+`pip install pdfminer`
+
+`pip install slate`
+
+Run:
+
+`python drcalc.py`
+
+-------------------------------------------------------------------------------------
