@@ -4,7 +4,7 @@ import requests
 import os
 import json
 
-
+import getpass
 
 class MailGun(object):
 	"""docstring for MainGun"""
@@ -30,7 +30,7 @@ if not os.path.exists(credential_path):
 
 	creds = {}
 	creds['webmail'] = raw_input("Please enter your webmail username:\n")
-	creds['password'] = raw_input("Please enter your webmail password:\n")
+	creds['password'] = getpass.getpass()
 	print("\n\nSelect your webmail server:\n[1] Teesta\n[2] Naambor\n[3] Disang\n[4] Tamdil\n[5] Dikrong")
 	server_in = input("Enter the number corresponding to the server:\n")-1
 	server_list = ['202.141.80.12','202.141.80.9','202.141.80.10','202.141.80.11','202.141.80.13']
