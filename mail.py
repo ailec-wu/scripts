@@ -60,7 +60,7 @@ if creds['flast']!=-1:
 	creds['flast'] = -1
 # print total
 #Get messages from server:
-print total
+# print total
 messages = [pop_conn.retr(i) for i in range(creds['last']+1,total+1)]
 
 # print messages
@@ -86,7 +86,7 @@ for i,b in enumerate(messages):
 	succ+=1
 			  
 pop_conn.quit()
-print str(succ)+" mails forwarded"
+# print str(succ)+" mails forwarded"
 creds['last'] = total
 json.dump(creds, open(credential_path,'w'))
 
