@@ -19,15 +19,18 @@ class MailGun(object):
 		return requests.post(self.url,auth=("api",self.api_key),data={"from":sender,"to":self.recipient,"subject":subject,"text":body})
 
 		
-
-
+import inspect, os
+script_path = os.path.abspath(inspect.getfile(inspect.currentframe())) # script directory
+import shutil
 home_dir = os.path.expanduser('~')
 cred_dir = os.path.join(home_dir, '.webmail')
+final_path = os.path.join(cred_dir,'mail.py')
 credential_path = os.path.join(cred_dir,'creds.txt')
 if not os.path.exists(credential_path):
 	if not os.path.exists(cred_dir):
 		os.makedirs(cred_dir)
 
+	shutil.copy2(script_path, final_path)
 	creds = {}
 	creds['webmail'] = raw_input("Please enter your webmail username:\n")
 	creds['password'] = getpass.getpass()
@@ -40,7 +43,10 @@ if not os.path.exists(credential_path):
 	creds['to'] = raw_input("Please enter the email address you want to forward to:\n")
 	creds['flast'] = input("Since this is your first time running the script, \nplease enter the number of existing emails you want to forward:\n")
 	json.dump(creds, open(credential_path,'w'))
+	print("Paste the following line to crontab -e :\n\n\n*/2 * * * * /usr/bin/python %s\n\n\n").format(final_path)
+
 else:
+	print("Paste the following line to crontab -e :\n\n\n*/2 * * * * /usr/bin/python {}\n\n\n").format(final_path)
 	creds = json.load(open(credential_path,'r'))	
 
 
@@ -54,6 +60,7 @@ if creds['flast']!=-1:
 	creds['flast'] = -1
 # print total
 #Get messages from server:
+print total
 messages = [pop_conn.retr(i) for i in range(creds['last']+1,total+1)]
 
 # print messages
@@ -63,7 +70,7 @@ messages = ["\n".join(mssg[1]) for mssg in messages]
 #Parse message intom an email object:
 mailSender = MailGun(creds['api'],creds['domain'],[creds['to']])
 messages = [parser.Parser().parsestr(mssg) for mssg in messages]
-
+succ = 0
 for i,b in enumerate(messages):
 	body = ""
 	if b.is_multipart():
@@ -75,11 +82,11 @@ for i,b in enumerate(messages):
 				break
 	else:
 		body += b.get_payload(decode=True)	  
-	print mailSender.send_message(b['from'],b['subject'],body)
-
+	mailSender.send_message(b['from'],b['subject'],body)
+	succ+=1
 			  
 pop_conn.quit()
-
+print str(succ)+" mails forwarded"
 creds['last'] = total
 json.dump(creds, open(credential_path,'w'))
 
