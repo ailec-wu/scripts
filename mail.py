@@ -86,7 +86,7 @@ for i,b in enumerate(messages):
 	succ+=1
 			  
 pop_conn.quit()
-print str(succ)+" new mails forwarded"
+# print str(succ)+" new mails forwarded"
 creds['last'] = total
 json.dump(creds, open(credential_path,'w'))
 
