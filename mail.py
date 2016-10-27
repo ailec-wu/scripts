@@ -38,7 +38,7 @@ if not os.path.exists(credential_path):
 	creds['api'] = raw_input("Please enter you mailgun api-key:\n")
 	creds['domain'] = raw_input("Please enter your mailgun sandbox url:\n")
 	creds['to'] = raw_input("Please enter the email address you want to forward to:\n")
-	creds['last'] = 385
+	creds['flast'] = input("Since this is your first time running the script, \nplease enter the number of existing emails you want to forward:\n")
 	json.dump(creds, open(credential_path,'w'))
 else:
 	creds = json.load(open(credential_path,'r'))	
@@ -49,9 +49,12 @@ pop_conn = poplib.POP3_SSL(creds['server'])
 pop_conn.user(creds['webmail'])
 pop_conn.pass_(creds['password'])
 total = len(pop_conn.list()[1])
+if creds['flast']!=-1:
+	creds['last'] = total - creds['flast'] 
+	creds['flast'] = -1
 # print total
 #Get messages from server:
-messages = [pop_conn.retr(i) for i in range(creds['last'],total+1)]
+messages = [pop_conn.retr(i) for i in range(creds['last']+1,total+1)]
 
 # print messages
 # Concat message pieces:
