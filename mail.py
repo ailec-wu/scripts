@@ -25,6 +25,7 @@ import shutil
 home_dir = os.path.expanduser('~')
 cred_dir = os.path.join(home_dir, '.webmail')
 final_path = os.path.join(cred_dir,'mail.py')
+log_path = os.path.join(cred_dir,'logs')
 credential_path = os.path.join(cred_dir,'creds.txt')
 if not os.path.exists(credential_path):
 	if not os.path.exists(cred_dir):
@@ -43,10 +44,9 @@ if not os.path.exists(credential_path):
 	creds['to'] = raw_input("Please enter the email address you want to forward to:\n")
 	creds['flast'] = input("Since this is your first time running the script, \nplease enter the number of existing emails you want to forward:\n")
 	json.dump(creds, open(credential_path,'w'))
-	print("Paste the following line to crontab -e :\n\n\n*/2 * * * * /usr/bin/python %s\n\n\n").format(final_path)
+	print("Paste the following line to crontab -e :\n\n\n*/2 * * * * /usr/bin/python {} >> {}\n\n\n").format(final_path,log_path)
 
 else:
-	print("Paste the following line to crontab -e :\n\n\n*/2 * * * * /usr/bin/python {}\n\n\n").format(final_path)
 	creds = json.load(open(credential_path,'r'))	
 
 
@@ -86,7 +86,7 @@ for i,b in enumerate(messages):
 	succ+=1
 			  
 pop_conn.quit()
-# print str(succ)+" mails forwarded"
+print str(succ)+" new mails forwarded"
 creds['last'] = total
 json.dump(creds, open(credential_path,'w'))
 
