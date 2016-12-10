@@ -36,3 +36,22 @@ Run:
 `python drcalc.py`
 
 -------------------------------------------------------------------------------------
+
+Gif Maker: A HQ gif generator
+-------------------------------------------------------------------------------------
+
+Finds the scene related to the query and generates a HQ gif from it.
+
+Requirements:
+ffmpeg, pysrt
+
+`pip install pysrt`
+
+[GET ffmpeg](https://ffmpeg.org/download.html#build-linux)
+
+
+Run:
+
+`python gif_maker.py -q **query** -f **input video file** -s **input srt file** -o **output file**`
+
+-------------------------------------------------------------------------------------
