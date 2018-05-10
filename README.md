@@ -17,6 +17,23 @@ Run:
 
 `python redditScrape.py`
 
+Acad Grade: IITG Status detector
+-------------------------------------------------------------------------------------
+Shows your current course status.
+
+Requirements -
+mechanize, Python 3.6
+
+Steps:
+
+`virtualenv -p python3.6 venv`
+
+`source venv/bin/active`
+
+`pip install mechanize`
+
+`python acadgrade.py`
+
 -------------------------------------------------------------------------------------
 
 DRCalc: DR Calculator from GradeCards
